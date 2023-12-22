@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Créer une nouvelle idée
+
+  form(action='/ideas/new', method='post')
+    label(for='name') Nom:
+    input(type='text', name='name', required)
+
+    label(for='category') Catégorie:
+    select(name='category', required)
+      option(value='Armoire') Armoire
+      option(value='Etagère') Etagère
+
+    label(for='materials') Matériaux:
+    - if (materials && materials.length > 0)
+      each material in materials
+        div
+          input(type='checkbox', name='materials[]', value=material._id)
+          label(for=material._id)= material.name
+
+    label(for='keywords') Mots-clés:
+    input(type='text', name='keywords', required)
+
+    button(type='submit') Créer l'idée

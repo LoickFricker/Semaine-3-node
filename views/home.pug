@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  style.
+    .container {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .right-column {
+      margin-left: 20px;
+    }
+
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  style.
+
+  h2 Bienvenue sur la page d'accueil !
+
+  a(href='/ideas/new') Créer une nouvelle idée de meuble
+
+  .container
+    .left-column
+      include index
+
+    .right-column  
+      if isAuthenticated
+        div#dashboard
+          h3 Dashboard
+          canvas#ideasChart
+      else
+        p Connectez-vous pour voir le dashboard
+
+  script.
+    const labels = !{JSON.stringify(dashboardData.labels)};
+    const data = !{JSON.stringify(dashboardData.datasets[0].data)};
+
+    const ctx = document.getElementById('ideasChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Nombre d\'idées de meuble par matériau',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });

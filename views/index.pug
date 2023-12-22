@@ -1,0 +1,18 @@
+block content
+
+  h1 Toutes les Idées de meuble
+  
+  a(href=`/`) Accueil
+
+  each idea in ideas
+    div
+      h2= idea.name
+      p Catégorie : #{idea.category}
+      p Matériaux :
+        ul
+          each material in idea.materials
+            li
+              a(href=`/materials/${material._id}`)= material.name
+
+    
+

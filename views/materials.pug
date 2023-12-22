@@ -1,0 +1,10 @@
+block content
+  h1 Les Materiaux que j'utilise
+
+  a(href=`/`) Accueil
+
+  each material in materials
+    div.material
+      h2 Material: #{material.name}
+      p Type: #{material.type}
+      p Supplier: #{material.supplier}
